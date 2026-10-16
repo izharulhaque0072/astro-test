@@ -1,0 +1,128 @@
+.mobile-menu {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .main-nav,
+  .site-header > .header-cta {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: block;
+    position: relative;
+  }
+
+  .mobile-menu summary {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    list-style: none;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--dark);
+    font-size: 12px;
+    font-weight: 650;
+    cursor: pointer;
+  }
+
+  .mobile-menu summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-menu-icon {
+    display: grid;
+    gap: 3px;
+    width: 16px;
+  }
+
+  .mobile-menu-icon i {
+    display: block;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+  }
+
+  .mobile-menu-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 30;
+    display: grid;
+    gap: 12px;
+    width: min(280px, calc(100vw - 32px));
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 12px 30px #201c1e1a;
+  }
+
+  .mobile-menu-panel nav {
+    display: grid;
+  }
+
+  .mobile-menu-panel nav a {
+    padding: 11px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+
+  .mobile-menu-panel nav a:hover,
+  .mobile-menu-panel nav a:focus-visible {
+    color: var(--pink);
+    background: #fff6f8;
+  }
+
+  .mobile-menu-panel > .button {
+    width: 100%;
+    border-radius: 6px;
+  }
+}
+
+@media (max-width: 600px) {
+  .service-grid,
+  .insight-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-card,
+  .service-card:nth-child(odd),
+  .service-card:nth-child(even),
+  .service-card:nth-child(n + 3) {
+    min-height: 0;
+    padding: 24px 18px !important;
+    border-right: 0;
+    border-bottom: 1px solid #393235;
+  }
+
+  .service-card:last-child {
+    border-bottom: 0;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .stats strong {
+    font-size: 22px;
+  }
+
+  .stats span {
+    line-height: 1.4;
+  }
+
+  .footer-top {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .footer-top > p {
+    margin: 0;
+    text-align: left;
+  }
+}

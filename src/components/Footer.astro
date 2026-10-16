@@ -1,0 +1,24 @@
+---
+import logo from '../dd-logo-new.png';
+
+interface Props {
+  description?: string;
+  location?: string;
+}
+
+const {
+  description = 'Custom software, standout experiences, and digital growth for ambitious businesses.',
+  location = 'Philadelphia · Serving clients worldwide'
+} = Astro.props;
+---
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <a class="brand footer-brand" href="#top" aria-label="Dignitas Digital home"><img src={logo.src} width="140" alt="" /></a>
+    <p>{description}</p>
+  </div>
+  <div class="footer-bottom">
+    <span>© {new Date().getFullYear()} Dignitas Digital. All rights reserved.</span>
+    <span>{location}</span>
+  </div>
+</footer>

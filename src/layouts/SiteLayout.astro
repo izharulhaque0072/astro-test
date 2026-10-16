@@ -1,0 +1,17 @@
+---
+import '../styles/global.css';
+const { title = 'Dignitas Digital | Digital, done right.', description = 'A boutique digital agency helping ambitious companies launch smarter products, create meaningful brands, and grow with confidence.' } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#b0144c" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="preconnect" href="https://dignitas.digital" />
+  </head>
+  <body><slot /></body>
+</html>

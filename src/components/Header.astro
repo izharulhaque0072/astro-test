@@ -1,0 +1,46 @@
+---
+import logo from '../dd-logo-new.png';
+
+interface Props {
+  navLinks?: { label: string; href: string }[];
+  ctaHref?: string;
+  ctaLabel?: string;
+}
+
+const {
+  navLinks = [
+    { label: 'About', href: '#about' },
+    { label: 'Services', href: '#services' },
+    { label: 'Work', href: '#work' },
+    { label: 'Insights', href: '#insights' }
+  ],
+  ctaHref = '#contact',
+  ctaLabel = 'Start a project ↗'
+} = Astro.props;
+---
+
+<header class="site-header">
+  <a class="brand" href="#top" aria-label="Dignitas Digital home"><img src={logo.src} width="140" alt="" /></a>
+  <nav class="main-nav" aria-label="Main navigation">
+    {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+  </nav>
+  <a class="button button-small header-cta" href={ctaHref}>{ctaLabel}</a>
+  <details class="mobile-menu">
+    <summary><span class="mobile-menu-icon" aria-hidden="true"><i></i><i></i><i></i></span><span>Menu</span></summary>
+    <div class="mobile-menu-panel">
+      <nav aria-label="Mobile navigation">
+        {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+      </nav>
+      <a class="button" href={ctaHref}>{ctaLabel}</a>
+    </div>
+  </details>
+</header>
+
+<script>
+  const mobileMenu = document.querySelector<HTMLDetailsElement>('.mobile-menu');
+  mobileMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileMenu.open = false;
+    });
+  });
+</script>

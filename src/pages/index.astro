@@ -1,0 +1,67 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ContactForm from '../components/ContactForm.jsx';
+import { wpFetch, plainText, getFeaturedImage } from '../lib/wordpress.js';
+
+let insights = [];
+try {
+  const posts = await wpFetch('posts?per_page=2&_embed=1&_fields=id,date,slug,link,title,excerpt,categories,_embedded');
+  insights = posts.map((post, index) => ({
+    title: plainText(post.title?.rendered),
+    excerpt: plainText(post.excerpt?.rendered).slice(0, 120),
+    category: index === 0 ? 'STRATEGY' : 'GROWTH',
+    link: `/insights/${post.slug}/`,
+    image: getFeaturedImage(post)
+  }));
+} catch (error) {
+  console.warn('WordPress insights could not be loaded; showing fallback content.', error);
+}
+if (!insights.length) insights = [
+  { category: 'STRATEGY', title: 'Why ambitious digital products need a sharper point of view', excerpt: 'Strong digital strategy starts with the right questions and a clear direction.', link: 'https://dignitas.digital/' },
+  { category: 'GROWTH', title: 'From scattered tactics to a digital growth system that compounds', excerpt: 'Build a connected approach to marketing, product, and measurable growth.', link: 'https://dignitas.digital/' }
+];
+---
+<SiteLayout
+  title="Dignitas Digital | Digital Strategy, Software & Growth"
+  description="Dignitas Digital partners with ambitious businesses to build custom software, design meaningful digital experiences, and drive measurable growth."
+>
+  <Header />
+  <main id="top">
+    <section class="hero section-wrap">
+      <div class="hero-copy">
+        <p class="eyebrow"><span></span> DIGITAL, DONE RIGHT.</p>
+        <h1>We build digital<br />experiences that<br /><em>move business</em><br />forward.</h1>
+        <p class="hero-description">A boutique digital agency helping ambitious companies launch smarter products, create meaningful brands, and grow with confidence.</p>
+        <div class="hero-actions"><a class="button" href="#contact">Bring us your challenge ↗</a><a class="button button-outline" href="#work">Explore our work</a></div>
+        <div class="stats"><div><strong>12+</strong><span>Years of impact</span></div><div><strong>200+</strong><span>Clients served</span></div><div><strong>97%</strong><span>Client retention</span></div></div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-image-frame"><img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=85" alt="Creative team collaborating in a bright studio" /></div>
+        <div class="location-pill"><i></i> Philadelphia · Global</div>
+        <div class="floating-note"><span>✳</span><p>Strategy, creativity, and<br />technology—working as one.</p></div>
+      </div>
+    </section>
+    <section class="trusted" aria-label="Trusted by teams"><p>TRUSTED BY TEAMS BUILDING WHAT’S NEXT</p><div class="logo-row"><b class="logo-blue">OMRON</b><b class="logo-orange">◈ OPENVAULT</b><b>JSTRAT</b><b class="logo-teal">PETRA</b><b class="logo-blue">DCR</b><b class="logo-green">◉ vedanta</b></div></section>
+
+    <section class="services section-wrap" id="services">
+      <div class="section-intro"><div><p class="eyebrow orange">WHAT WE DO</p><h2>One partner for your<br />biggest digital<br />opportunities.</h2></div><p>From first insight to lasting growth, our specialists work as an extension of your team—bringing clarity, momentum, and craft to every stage.</p></div>
+      <div class="service-grid">
+        <article class="service-card"><span class="service-number">01</span><span class="service-icon">‹/›</span><h3>Custom software</h3><p>Scalable web, mobile, and enterprise products engineered around the way your business actually works.</p><div class="tags"><span>Web apps</span><span>Mobile</span><span>SaaS</span></div></article>
+        <article class="service-card"><span class="service-number">02</span><span class="service-icon">◎</span><h3>Digital growth</h3><p>Performance-led brand, content, SEO, and paid campaigns that turn attention into measurable demand.</p><div class="tags"><span>SEO</span><span>Paid media</span><span>Content</span></div></article>
+        <article class="service-card"><span class="service-number">03</span><span class="service-icon">✥</span><h3>Experience design</h3><p>Research-driven digital experiences that feel effortless, communicate clearly, and move people to act.</p><div class="tags"><span>UX strategy</span><span>UI design</span><span>Research</span></div></article>
+        <article class="service-card"><span class="service-number">04</span><span class="service-icon">▥</span><h3>AI &amp; automation</h3><p>Practical AI systems and workflow automation that save time, reduce friction, and unlock better decisions.</p><div class="tags"><span>AI strategy</span><span>Automation</span><span>Data</span></div></article>
+      </div>
+    </section>
+
+    <section class="about section-wrap" id="about"><div><p class="eyebrow">BOUTIQUE BY DESIGN</p><h2>Small enough to<br />care. Experienced<br />enough to deliver.</h2></div><div class="about-content"><p>For over a decade, we’ve partnered with founders and enterprise teams to solve complex problems without the complexity of a traditional agency.</p><div class="promise-grid"><div><span>✓</span> Senior talent, always</div><div><span>✓</span> Clear thinking before building</div><div><span>✓</span> Progress you can measure</div><div><span>✓</span> A team that stays accountable</div></div></div></section>
+
+    <section class="testimonial" id="work"><div class="testimonial-inner"><img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=900&q=85" alt="A team working together around a table" /><blockquote><span class="quote-mark">❞</span><p>“Dignitas didn’t just deliver a product. They challenged our assumptions, aligned our teams, and gave us a smarter path to growth.”</p><footer><strong>Maya Reynolds</strong><small>VP, Digital Transformation</small></footer></blockquote></div></section>
+
+    <section class="insights section-wrap" id="insights"><div class="insights-heading"><p class="eyebrow">HOW WE THINK</p><h2>The best work starts with<br />better questions.</h2></div><div class="insight-grid">{insights.slice(0,2).map((item) => <a class="insight-card" href={item.link}><span>{item.category}</span><h3>{item.title}</h3>{item.excerpt && <p>{item.excerpt}</p>}<b>Read perspective ↗</b></a>)}</div></section>
+
+    <section class="contact" id="contact"><div class="contact-inner"><div class="contact-copy"><p class="eyebrow light">LET’S MAKE AN IMPACT</p><h2>Your next big move<br />starts with a<br />conversation.</h2><p>Tell us what you’re building, fixing, or rethinking. We’ll bring a fresh perspective.</p></div><ContactForm client:load /></div><div class="contact-orbit"></div></section>
+  </main>
+  <Footer />
+</SiteLayout>
