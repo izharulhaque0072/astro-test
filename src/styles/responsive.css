@@ -3,7 +3,7 @@
 }
 
 @media (max-width: 760px) {
-  .main-nav,
+  .site-header > .main-nav,
   .site-header > .header-cta {
     display: none;
   }
